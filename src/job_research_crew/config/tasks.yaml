@@ -1,17 +1,60 @@
 research_task:
   description: >
-    Conduct a thorough research about {topic}
-    Make sure you find any interesting and relevant information given
-    the current year is {current_year}.
-  expected_output: >
-    A list with 10 bullet points of the most relevant information about {topic}
-  agent: researcher
+    Conduct comprehensive research on {company}. Find information about:
+    1. Company mission, values, and culture
+    2. Recent news and announcements (last 6 months)
+    3. Products and services they offer
+    4. Technology stack and engineering practices (if applicable)
+    5. Company size, funding stage, and growth trajectory
+    6. Key leadership team members
+    7. Current challenges or strategic priorities
 
-reporting_task:
-  description: >
-    Review the context you got and expand each topic into a full section for a report.
-    Make sure the report is detailed and contains any and all relevant information.
+    Be thorough and focus on information that would help someone applying for
+    the {role} position understand the company deeply.
   expected_output: >
-    A fully fledged report with the main topics, each with a full section of information.
-    Formatted as markdown without '```'
-  agent: reporting_analyst
+    A detailed research document with clearly labeled sections covering all
+    aspects of the company. Include specific facts, names, and dates where
+    possible. Flag any information that could be particularly relevant for
+    someone applying to the {role} position.
+  agent: company_researcher
+
+analysis_task:
+  description: >
+    Based on the company research provided, analyze how a candidate should
+    position themselves for the {role} position at {company}. Specifically:
+    1. Identify the top 5 skills and experiences that would matter most for this role
+    2. Suggest 3 talking points that would resonate with the hiring team
+    3. Identify potential culture-fit signals to emphasize
+    4. Note any red flags or challenges the candidate should be prepared to discuss
+    5. Recommend specific questions the candidate should ask in an interview
+  expected_output: >
+    A strategic analysis document with actionable recommendations for the
+    candidate. Each recommendation should be specific and tied back to something
+    discovered in the company research. Include a priority ranking for preparation topics.
+  agent: role_analyst
+  context:
+    - research_task
+
+report_task:
+  description: >
+    Using the company research and strategic analysis, create a polished
+    company research brief for a candidate applying to the {role} position
+    at {company}. The brief should be formatted as a professional document
+    with the following sections:
+    1. Executive Summary (2-3 sentences)
+    2. Company Overview
+    3. Role Alignment Analysis
+    4. Key Talking Points (with supporting evidence)
+    5. Preparation Checklist
+    6. Recommended Interview Questions to Ask
+
+    Make the brief actionable and easy to scan before an interview.
+  expected_output: >
+    A well-formatted markdown document that serves as a complete preparation
+    brief for the candidate. It should be professional enough to share with
+    a career coach and practical enough to review 30 minutes before an interview.
+  agent: report_writer
+  context:
+    - research_task
+    - analysis_task
+  output_file: output/report.md
