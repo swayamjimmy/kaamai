@@ -5,7 +5,9 @@ description = "job_research_crew using crewAI"
 authors = [{ name = "Your Name", email = "you@example.com" }]
 requires-python = ">=3.10,<3.14"
 dependencies = [
-    "crewai[tools]==1.14.5a2"
+    "crewai[tools]==1.14.5a2",
+    "litellm>=1.86.0rc1",
+    "streamlit>=1.57.0",
 ]
 
 [project.scripts]
